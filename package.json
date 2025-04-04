@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+      "dev": "npm run development",
+      "development": "mix",
+      "watch": "mix watch",
+      "watch-poll": "mix watch -- --watch-options-poll=1000",
+      "hot": "mix watch --hot",
+      "prod": "npm run production",
+      "production": "mix --production"
+  },
+  "devDependencies": {
+      "axios": "^0.21",
+      "laravel-mix": "^6.0.6",
+      "lodash": "^4.17.19",
+      "postcss": "^8.1.14",
+      "serverless-domain-manager": "^8.0.0",
+      "serverless-dotenv-plugin": "^4.0.2",
+      "serverless-lift": "^1.25.0",
+      "serverless-plugin-diff": "^3.0.0",
+      "serverless-plugin-ifelse": "^1.0.7",
+      "serverless-python-requirements": "^6.1.1",
+      "serverless-vpc-plugin": "^1.0.5"
+  },
+  "dependencies": {
+      "bref": "^1.6.0",
+      "dotenv": "^16.0.3"
+  }
+}

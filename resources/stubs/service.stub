@@ -1,0 +1,24 @@
+<?php
+
+
+namespace Modules\ModuleName\src\Services;
+
+//use Modules\ModuleName\src\Repository\ModuleNameRepository;
+
+class ClassName
+{
+//    /**
+//     * @var ModuleNameRepository
+//     */
+//    protected ModuleNameRepository $repository;
+//
+//    /**
+//     * ClassName constructor.
+//     *
+//     * @param ModuleNameRepository $repository
+//    */
+//    public function __construct(ModuleNameRepository $repository)
+//    {
+//        $this->repository = $repository;
+//    }
+}

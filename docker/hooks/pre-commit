@@ -1,0 +1,61 @@
+# LARAVEL GIT HOOKS BEGIN #
+#!/usr/bin/env bash
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+reset=`tput sgr0`
+
+echo "${yellow}[PROCESSING]${reset} RUNNING CHECKING CODE CONVENTION"
+# MUST change yourappname_app to your define app container name
+docker exec yourappname_app ./vendor/bin/phpcbf
+echo "RUNNING PHPCBF: ${green}[COMPLETED]${reset}"
+# checking phpcs
+docker exec yourappname_app ./vendor/bin/phpcs -n --standard=phpcs.xml
+
+STATUS_CODE=$?
+if [ ! ${STATUS_CODE} -eq 0 ]; then
+    echo "CHECKING PHPCS: ${red}[FAILURE]${reset}"
+    PHPCS_STATUS_CODE=${STATUS_CODE}
+else
+    echo "CHECKING PHPCS: ${green}[PASSED]${reset}"
+    PHPCS_STATUS_CODE=0
+fi
+
+# checking phpmd
+docker exec yourappname_app ./vendor/bin/phpmd app text phpmd.xml
+
+STATUS_CODE=$?
+if [ ! ${STATUS_CODE} -eq 0 ]; then
+    echo "CHECKING PHPMD: ${red}[FAILURE]${reset}"
+    PHPMD_STATUS_CODE=${STATUS_CODE}
+else
+    echo "CHECKING PHPMD: ${green}[PASSED]${reset}"
+    PHPMD_STATUS_CODE=0
+fi
+
+# checking phpstan
+docker exec yourappname_app ./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G
+
+STATUS_CODE=$?
+if [ ! ${STATUS_CODE} -eq 0 ]; then
+    echo "CHECKING PHPSTAN: ${red}[FAILURE]${reset}"
+    PHPSTAN_STATUS_CODE=${STATUS_CODE}
+else
+    echo "CHECKING PHPSTAN: ${green}[PASSED]${reset}"
+    PHPSTAN_STATUS_CODE=0
+fi
+
+# show result
+if [ ${PHPCS_STATUS_CODE} -eq 0 ] && [ ${PHPMD_STATUS_CODE} -eq 0 ] && [ ${PHPSTAN_STATUS_CODE} -eq 0 ]
+then
+    echo "${yellow}[FINISHED]${reset} CHECKING CODE CONVENTION: ${green}[PASSED]${reset}"
+    exit 0;
+fi
+
+echo "${yellow}[FINISHED]${reset} CHECKING CODE CONVENTION: ${red}[FAILURE]${reset}"
+exit 2;
+
+
+# LARAVEL GIT HOOKS END #
+

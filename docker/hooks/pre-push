@@ -1,0 +1,23 @@
+# LARAVEL GIT HOOKS BEGIN #
+#!/usr/bin/env bash
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+reset=`tput sgr0`
+
+echo "${yellow}[PROCESSING]${reset} RUNNING CHECKING PHPUNIT"
+# checking phpunit
+docker exec yourappname_app ./vendor/bin/phpunit -c phpunit.xml
+
+STATUS_CODE=$?
+if [ ! ${STATUS_CODE} -eq 0 ]; then
+    echo "${yellow}[FINISHED]${reset} CHECKING PHPUNIT: ${red}[FAILURE]${reset}"
+    exit ${STATUS_CODE}
+fi
+
+echo "${yellow}[FINISHED]${reset} CHECKING PHPUNIT: ${green}[PASSED]${reset}"
+exit 0;
+
+# LARAVEL GIT HOOKS END #
+

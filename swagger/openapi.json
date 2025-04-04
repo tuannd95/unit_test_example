@@ -1,0 +1,613 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://api.yourappname.localhost",
+      "description": "",
+      "variables": {}
+    }
+  ],
+  "info": {
+    "version": "e9dc923b-de70-4573-beb3-6296eead0420",
+    "title": "Laravel API",
+    "description": "",
+    "termsOfService": "",
+    "contact": {},
+    "license": {
+      "name": ""
+    }
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "summary": "Register",
+        "operationId": "Register",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Register Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkueW91cmFwcG5hbWUubG9jYWxob3N0XC9hcGlcL3YxXC9hdXRoXC9yZWdpc3RlciIsImlhdCI6MTYyNTAxOTE2MSwiZXhwIjoxNjI1MDIyNzYxLCJuYmYiOjE2MjUwMTkxNjEsImp0aSI6IjNvbGgwRUZFQ2x3OUVDUVgiLCJzdWIiOjExLCJwcnYiOiI0MGY3NGJiNDdlMTAxNWUyOTU4MTgwYTZkYjJlNGQ5MWRjOWMxZDdhIn0.BYmjTPYhG-hgkPI99Oik6mes_0IPXVhMo73QPJpQzkg",
+                    "token_type": "bearer",
+                    "expires_in": 3600,
+                    "name": "Example user",
+                    "email": "user01@example.com",
+                    "updated_at": "2021-06-30T02:12:41.000000Z",
+                    "created_at": "2021-06-30T02:12:41.000000Z",
+                    "id": 11
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Register Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/422"
+                },
+                "example": {
+                  "error": {
+                    "status_code": 422,
+                    "code": "INVALID_PARAMETER",
+                    "message": "The given data was invalid.",
+                    "error_id": "NAL-422",
+                    "errors": [
+                      {
+                        "field": "email",
+                        "error_id": "NAL-LOG-103",
+                        "message": "The email has already been taken."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "name": "Example user",
+                  "email": "user01@example.com",
+                  "password": "333333336",
+                  "password_confirmation": "333333336"
+                }
+              },
+              "example": "{\n    \"name\": \"Example\",\n    \"email\": \"user01@example.com\",\n    \"password\": \"333333336\",\n    \"password_confirmation\": \"333333336\"\n}"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "Login",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Login Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkueW91cmFwcG5hbWUubG9jYWxob3N0XC9hcGlcL3YxXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYyNTA0NTUyOCwiZXhwIjoxNjI1MDQ5MTI4LCJuYmYiOjE2MjUwNDU1MjgsImp0aSI6IjdZTWQ2ZzQxZEdnY3FmNjciLCJzdWIiOjUyLCJwcnYiOiI0MGY3NGJiNDdlMTAxNWUyOTU4MTgwYTZkYjJlNGQ5MWRjOWMxZDdhIn0.qSTqLAq041GlrYck_31PTeLFqpmiyKPwNDzxtEK1uQ4",
+                    "token_type": "bearer",
+                    "expires_in": 3600,
+                    "id": 52,
+                    "name": "Example user",
+                    "email": "user01@example.com",
+                    "email_verified_at": null,
+                    "created_at": "2021-06-30T09:31:56.000000Z",
+                    "updated_at": "2021-06-30T09:31:56.000000Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401"
+                },
+                "example": {
+                  "error": {
+                    "status_code": 401,
+                    "code": "UNAUTHORIZED",
+                    "message": "Unauthenticated.",
+                    "error_id": "NAL-401",
+                    "errors": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "email": "user01@example.com",
+                  "password": "33333333"
+                }
+              },
+              "example": "{\n    \"email\": \"user01@example.com\",\n    \"password\": \"33333333\"\n}"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "summary": "Refresh",
+        "operationId": "Refresh",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Refresh Token Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkueW91cmFwcG5hbWUubG9jYWxob3N0XC9hcGlcL3YxXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNjI1MDQ1NTI4LCJleHAiOjE2MjUwNDkxNDYsIm5iZiI6MTYyNTA0NTU0NiwianRpIjoiVVJVcTZSbU5tbTBrQll6byIsInN1YiI6NTIsInBydiI6IjQwZjc0YmI0N2UxMDE1ZTI5NTgxODBhNmRiMmU0ZDkxZGM5YzFkN2EifQ.ehqCyQcy-iE13FBff44jyb8uig3WmgR_SF8DYSBY6rA",
+                    "token_type": "bearer",
+                    "expires_in": 3600,
+                    "id": 52,
+                    "name": "User01",
+                    "email": "user01@example.com",
+                    "email_verified_at": null,
+                    "created_at": "2021-06-30T09:31:56.000000Z",
+                    "updated_at": "2021-06-30T09:31:56.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "operationId": "Logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "status": 200,
+                  "success": true,
+                  "data": []
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Logout Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401"
+                },
+                "example": {
+                  "status": 401,
+                  "success": false,
+                  "error": {
+                    "error_id": "ERR-0401",
+                    "level": "system",
+                    "http_code": 401,
+                    "application_code": "HTTP_UNAUTHORIZED",
+                    "title": "許可されていない.",
+                    "message": "システムエラーが発生しました。（401 : HTTP_UNAUTHORIZED）",
+                    "errors": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/forgot-password": {
+      "post": {
+        "summary": "Forgot Password",
+        "operationId": "ForgotPassword",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Forgot Password Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "message": "We have emailed your password reset link!",
+                    "code": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Forgot Password Throttle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "error": {
+                    "status_code": 400,
+                    "code": "BAD_REQUEST",
+                    "message": "Please wait before retrying.",
+                    "error_id": "NAL-400",
+                    "errors": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "email": "user01@example.com"
+                }
+              },
+              "example": "{\n    \"email\": \"user01@example.com\"\n}"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/reset-password": {
+      "post": {
+        "summary": "Reset Password",
+        "operationId": "ResetPassword",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Reset Password Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "message": "Your password has been reset!",
+                    "code": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Reset Password Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "error": {
+                    "status_code": 400,
+                    "code": "BAD_REQUEST",
+                    "message": "This password reset token is invalid.",
+                    "error_id": "NAL-400",
+                    "errors": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "token": "110cfda054d97647384db8caadf49f52319666ddb932fe39e822d9bf202699cc",
+                  "email": "user01@example.com",
+                  "password": "11111111",
+                  "password_confirmation": "11111111"
+                }
+              },
+              "example": "{\n    \"token\": \"110cfda054d97647384db8caadf49f52319666ddb932fe39e822d9bf202699cc\",\n    \"email\": \"user01@example.com\",\n    \"password\": \"11111111\",\n    \"password_confirmation\": \"11111111\"\n}"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "summary": "Me",
+        "operationId": "Me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "My Profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "data": {
+                    "id": 52,
+                    "name": "User01",
+                    "email": "user01@example.com",
+                    "email_verified_at": null,
+                    "created_at": "2021-06-30T09:31:56.000000Z",
+                    "updated_at": "2021-06-30T09:31:56.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "200": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "access_token": {
+                "type": "string",
+                "description": "",
+                "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkueW91cmFwcG5hbWUubG9jYWxob3N0XC9hcGlcL3YxXC9hdXRoXC9yZWdpc3RlciIsImlhdCI6MTYyNTAxOTE2MSwiZXhwIjoxNjI1MDIyNzYxLCJuYmYiOjE2MjUwMTkxNjEsImp0aSI6IjNvbGgwRUZFQ2x3OUVDUVgiLCJzdWIiOjExLCJwcnYiOiI0MGY3NGJiNDdlMTAxNWUyOTU4MTgwYTZkYjJlNGQ5MWRjOWMxZDdhIn0.BYmjTPYhG-hgkPI99Oik6mes_0IPXVhMo73QPJpQzkg"
+              },
+              "token_type": {
+                "type": "string",
+                "description": "",
+                "default": "bearer"
+              },
+              "expires_in": {
+                "type": "integer",
+                "description": "",
+                "default": 3600
+              },
+              "name": {
+                "type": "string",
+                "description": "",
+                "default": "User01"
+              },
+              "email": {
+                "type": "string",
+                "description": "",
+                "default": "user01@example.com"
+              },
+              "updated_at": {
+                "type": "string",
+                "description": "",
+                "default": "2021-06-30T02:12:41.000000Z"
+              },
+              "created_at": {
+                "type": "string",
+                "description": "",
+                "default": "2021-06-30T02:12:41.000000Z"
+              },
+              "id": {
+                "type": "integer",
+                "description": "",
+                "default": 11
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "status_code": {
+                "type": "integer",
+                "description": "",
+                "default": 400
+              },
+              "code": {
+                "type": "string",
+                "description": "",
+                "default": "BAD_REQUEST"
+              },
+              "message": {
+                "type": "string",
+                "description": "",
+                "default": "Please wait before retrying."
+              },
+              "error_id": {
+                "type": "string",
+                "description": "",
+                "default": "NAL-400"
+              },
+              "errors": {
+                "type": "array",
+                "items": {}
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "status_code": {
+                "type": "integer",
+                "description": "",
+                "default": 401
+              },
+              "code": {
+                "type": "string",
+                "description": "",
+                "default": "UNAUTHORIZED"
+              },
+              "message": {
+                "type": "string",
+                "description": "",
+                "default": "Unauthenticated."
+              },
+              "error_id": {
+                "type": "string",
+                "description": "",
+                "default": "NAL-401"
+              },
+              "errors": {
+                "type": "array",
+                "items": {}
+              }
+            }
+          }
+        }
+      },
+      "422": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "status_code": {
+                "type": "integer",
+                "description": "",
+                "default": 422
+              },
+              "code": {
+                "type": "string",
+                "description": "",
+                "default": "INVALID_PARAMETER"
+              },
+              "message": {
+                "type": "string",
+                "description": "",
+                "default": "The given data was invalid."
+              },
+              "error_id": {
+                "type": "string",
+                "description": "",
+                "default": "NAL-422"
+              },
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "",
+                      "default": "email"
+                    },
+                    "error_id": {
+                      "type": "string",
+                      "description": "",
+                      "default": "NAL-LOG-103"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "",
+                      "default": "The email has already been taken."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    },
+    {
+      "bearer": []
+    },
+    {
+      "bearer": []
+    },
+    {
+      "bearer": []
+    },
+    {
+      "bearer": []
+    }
+  ],
+  "tags": [],
+  "externalDocs": {
+    "url": "",
+    "description": ""
+  },
+  "warnings": []
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="Your App Name PHP Coding Standard">
+    <!-- Default directory to check if there are no directories argument  -->
+    <file>app</file>
+    <file>Modules</file>
+    <exclude-pattern type="relative-root">Modules/**/Database/Migrations/*.php</exclude-pattern>
+    <exclude-pattern type="relative-root">Modules/**/Tests/*.php</exclude-pattern>
+    <exclude-pattern type="relative-root">Modules/Core/**</exclude-pattern>
+    <exclude-pattern type="relative-root">app/Swaggers/**</exclude-pattern>
+
+    <!-- Add PSR1 standard -->
+    <rule ref="PSR1"/>
+
+    <!-- Add PSR2 standard -->
+    <rule ref="PSR2"/>
+
+    <rule ref="PEAR.Commenting.FunctionComment">
+        <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+    </rule>
+    <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="Generic.PHP.LowerCaseKeyword"/>
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+    <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+    <rule ref="Generic.WhiteSpace.ScopeIndent"/>
+</ruleset>

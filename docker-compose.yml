@@ -1,0 +1,100 @@
+version: "3.2"
+
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+      args:
+        - PHP_VERSION=8.1
+    tty: true
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    hostname: app
+    working_dir: /var/www/html
+    expose:
+      - 9000
+      - 9001
+    volumes:
+      - ./:/var/www/html:cached
+      - ./:/var/run/php-fpm/
+      - ./docker/config/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    links:
+      - database
+    depends_on:
+      - dynamodb-local
+
+  nginx:
+    image: nginx:1.19.0
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    tty: true
+    expose:
+      - "80"
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www/html:cached
+      - ./docker/config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/config/conf.d/:/etc/nginx/conf.d/
+      - ./docker/logs:/var/log/nginx/
+    depends_on:
+      - app
+
+  # The Database
+  database:
+    image: postgres:15
+    container_name: ${COMPOSE_PROJECT_NAME}_db
+    platform: linux/x86_64
+    volumes:
+      - ./docker/postgresql:/var/lib/postgresql/data:rw
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432
+  # The Mailhog client
+  mailhog:
+    image: mailhog/mailhog
+    container_name: ${COMPOSE_PROJECT_NAME}_mail
+    logging:
+      driver: "none" # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+  # The S3 local
+  s3:
+    image: minio/minio
+    container_name: ${COMPOSE_PROJECT_NAME}_s3
+    ports:
+      - 9000:9000 # smtp server
+      - 9001:9001 # web ui
+    volumes:
+      - ./storage/minio:/data
+    environment:
+      MINIO_ACCESS_KEY: ${AWS_ACCESS_KEY_ID}
+      MINIO_SECRET_KEY: ${AWS_SECRET_ACCESS_KEY}
+      HOST_NAME: s3.localhost
+    command: server --console-address :9001 --address 0.0.0.0:9000 /data
+
+  # dynamodb
+  dynamodb-local:
+    platform: linux/x86_64
+    image: amazon/dynamodb-local
+    container_name: ${COMPOSE_PROJECT_NAME}_dynamodb
+    ports:
+      - 8005:8000
+    volumes:
+      - ./docker/dynamodb:/data
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
+
+  dynamodb-admin:
+    platform: linux/x86_64
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8007:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+    depends_on:
+      - dynamodb-local

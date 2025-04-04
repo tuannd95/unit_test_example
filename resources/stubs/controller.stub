@@ -1,0 +1,11 @@
+<?php
+
+
+namespace Modules\ModuleName\src\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+
+class ClassName extends Controller
+{
+
+}

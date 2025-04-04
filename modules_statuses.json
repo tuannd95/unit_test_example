@@ -1,0 +1,9 @@
+{
+    "Core": true,
+    "Auth": true,
+    "Base": true,
+    "Admin": true,
+    "Member": true,
+    "Appraiser": true,
+    "Payment": true
+}
