@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-family: Source SansSerif Pro, Arial, sans-serif;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2rem;
+                background-color: #fff;
+                color: #000;
+            }
+
+            body > ul > li {
+                font-size: larger;
+            }
+
+            h2 {
+                font-size: larger;
+                text-decoration-line: underline;
+                text-decoration-thickness: 2px;
+                margin: 0;
+                padding: 0.5rem 0;
+            }
+
+            ul {
+                list-style: none;
+                margin: 0 0 2rem;
+                padding: 0 0 0 1rem;
+                text-indent: -1rem;
+            }
+
+            .success:before {
+                color: #4e9a06;
+                content: '✓';
+                padding-right: 0.5rem;
+            }
+
+            .defect {
+                color: #a40000;
+            }
+
+            .defect:before {
+                color: #a40000;
+                content: '✗';
+                padding-right: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Eloquent Database Service (Tests\Unit\EloquentDatabaseService)</h2>
+        <ul>
+            <li class="success">Get orders by user</li>
+            <li class="success">Update order status success</li>
+            <li class="success">Update order status failure</li>
+        </ul>
+        <h2>Order APIProcessor (Tests\Unit\OrderAPIProcessor)</h2>
+        <ul>
+            <li class="success">Process order api response status not success</li>
+            <li class="success">Process order api response data greater than or equal 50 and amount less than 100</li>
+            <li class="success">Process order api response data less than 50</li>
+            <li class="success">Process order api response data less than 50 and flag true</li>
+            <li class="success">Process order api response data greater than or equal 50 and amount greater than 100</li>
+            <li class="success">Process order exception thrown</li>
+        </ul>
+        <h2>Order Exporter (Tests\Unit\OrderExporter)</h2>
+        <ul>
+            <li class="success">Export order with existing directory</li>
+            <li class="success">Export order with non existing directory</li>
+            <li class="success">Export order with open file return false</li>
+            <li class="success">Export order success with flag true</li>
+            <li class="success">Export order success with flag false</li>
+            <li class="success">Export order success with amount greater than 150</li>
+        </ul>
+        <h2>Order Processing Service (App\Tests\Unit\OrderProcessingService)</h2>
+        <ul>
+            <li class="success">Process orders successfully with no data</li>
+            <li class="success">Process orders with single order</li>
+            <li class="success">Process orders with multiple orders</li>
+            <li class="success">Process orders with invalid user id</li>
+            <li class="success">Process orders with order type a</li>
+            <li class="success">Process orders with order type b</li>
+            <li class="success">Process orders with order type c</li>
+            <li class="success">Process orders with order type default</li>
+            <li class="success">Process orders with order type a and amount greater than 200</li>
+            <li class="success">Process orders with order type a and amount less than or equal to 200</li>
+            <li class="success">Process orders with order type c and flag true</li>
+            <li class="success">Process orders with order type c and flag false</li>
+            <li class="success">Process orders with order type a and export failed</li>
+        </ul>
+        <h2>Order Status Updater (Tests\Unit\OrderStatusUpdater)</h2>
+        <ul>
+            <li class="success">Update order status successfully</li>
+            <li class="success">Update order status with database exception</li>
+        </ul>
+    </body>
+</html>
